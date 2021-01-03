@@ -1,7 +1,7 @@
 const { adjectives, authors, scientists } = require('./data')
 
 const app = {
-    print: (text) => {
+    print: () => {
         const adjective = adjectives[app.random(adjectives.length)]
         const author = authors[app.random(authors.length)]
         const scientist = scientists[app.random(scientists.length)]
