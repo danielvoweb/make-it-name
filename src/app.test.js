@@ -1,4 +1,10 @@
-const app = require('./index.js')
+const App = require('./index.js')
+
+let app
+
+beforeAll(() => {
+    app = new App()
+})
 
 test('random() should return between zero and max', () => {
     const max = 3
@@ -38,7 +44,7 @@ test('compose() should build name from adjective and authors for odd randoms', (
         expectedAuthor,
         expectedScientist
     )
-    expect(actual).toEqual(`${expectedAdjective}-${expectedAuthor}`)
+    expect(actual.output).toBe(`${expectedAdjective}-${expectedAuthor}`)
 })
 
 test('compose() should build name from adjective and scientist for even randoms', () => {
@@ -52,5 +58,23 @@ test('compose() should build name from adjective and scientist for even randoms'
         expectedAuthor,
         expectedScientist
     )
-    expect(actual).toEqual(`${expectedAdjective}-${expectedScientist}`)
+    expect(actual.output).toBe(`${expectedAdjective}-${expectedScientist}`)
+})
+
+test('despicable-crick', () => {
+    const input = 'adjective-author'
+    const actual = app.transform(input)
+    expect(actual.output).toBe('adjective_author')
+})
+
+test('high-pitched-carson', () => {
+    const expectedAdjective = 'adjective'
+    const expectedAuthor = 'author'
+    const expectedScientist = 'scientist'
+    const random = 1
+    const actual = app
+        .compose(random, expectedAdjective, expectedAuthor, expectedScientist)
+        .transform()
+
+    expect(actual.output).toBe(`${expectedAdjective}_${expectedAuthor}`)
 })
