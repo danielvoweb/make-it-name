@@ -1,9 +1,12 @@
 const App = require('./index.js')
 
-let app
+let app, expectedAdjective, expectedAuthor, expectedScientist
 
 beforeAll(() => {
     app = new App()
+    expectedAdjective = 'adjective'
+    expectedAuthor = 'author'
+    expectedScientist = 'scientist'
 })
 
 test('random() should return between zero and max', () => {
@@ -34,9 +37,6 @@ test('random() should handle undefined', () => {
 })
 
 test('compose() should build name from adjective and authors for odd randoms', () => {
-    const expectedAdjective = 'adjective'
-    const expectedAuthor = 'author'
-    const expectedScientist = 'scientist'
     const random = 1
     const actual = app.compose(
         random,
@@ -48,9 +48,6 @@ test('compose() should build name from adjective and authors for odd randoms', (
 })
 
 test('compose() should build name from adjective and scientist for even randoms', () => {
-    const expectedAdjective = 'adjective'
-    const expectedAuthor = 'author'
-    const expectedScientist = 'scientist'
     const random = 2
     const actual = app.compose(
         random,
@@ -68,9 +65,6 @@ test('despicable-crick', () => {
 })
 
 test('high-pitched-carson', () => {
-    const expectedAdjective = 'adjective'
-    const expectedAuthor = 'author'
-    const expectedScientist = 'scientist'
     const random = 1
     const actual = app
         .compose(random, expectedAdjective, expectedAuthor, expectedScientist)

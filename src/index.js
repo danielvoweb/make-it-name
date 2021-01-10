@@ -19,8 +19,6 @@ class App {
         )
     }
 
-    // TODO: test around compose
-
     compose(random, adjective, author, scientist) {
         this.output =
             random % 2 == 0
