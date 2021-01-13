@@ -1,33 +1,39 @@
 const { adjectives, authors, scientists } = require('./data')
 
-const app = {
-    print: () => {
-        const adjective = adjectives[app.random(adjectives.length)]
-        const author = authors[app.random(authors.length)]
-        const scientist = scientists[app.random(scientists.length)]
+class App {
+    constructor(options) {
+        this.options = options || { u: false }
+        this.output = ''
+        this.defaultRandom = new Date().getTime()
+        this.adjective = adjectives[this.random(adjectives.length)]
+        this.author = authors[this.random(authors.length)]
+        this.scientist = scientists[this.random(scientists.length)]
+    }
 
-        console.log(
-            app.compose(
-                app.random(100),
-                adjective,
-                author,
-                scientist,
-                scientist
-            )
-        )
-    },
+    print(log) {
+        this.compose(this.adjective, this.author, this.scientist)
+        if (this.options.u) this.transform()
+        log(this.output)
+    }
 
-    compose: (random, adjective, author, scientist) => {
-        return random % 2 == 0
-            ? `${adjective}-${scientist}`
-            : `${adjective}-${author}`
-    },
+    compose(adjective, author, scientist) {
+        this.output =
+            this.defaultRandom % 2 == 0
+                ? `${adjective}-${scientist}`
+                : `${adjective}-${author}`
+        return this
+    }
 
-    random: (max = 0) => {
+    transform(input) {
+        this.output = (input || this.output).replace('-', '_')
+        return this
+    }
+
+    random(max = 0) {
         const random = Math.random()
         const flooredMax = Math.floor(Math.abs(max))
         return Math.floor(random * flooredMax)
-    },
+    }
 }
 
-module.exports = app
+module.exports = App
