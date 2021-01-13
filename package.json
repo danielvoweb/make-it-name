@@ -1,6 +1,6 @@
 {
     "name": "make-it-name",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "description": "Random name generator",
     "main": "bin/program.js",
     "scripts": {

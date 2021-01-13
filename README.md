@@ -63,6 +63,15 @@ PS C:\> mknm
 historical-watson
 ```
 
+Make-it-name supports command line arguments to output with underscores instead of hyphens.
+
+Example:
+
+```
+PS C:\> mknm -u
+tart_dickinson
+```
+
 ### Advanced Usage
 
 To make the output of make-it-name a little more usable, you can use a Powershell function and alias to set the output in your clipboard value.

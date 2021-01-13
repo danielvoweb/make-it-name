@@ -1,27 +1,24 @@
 const { adjectives, authors, scientists } = require('./data')
 
-// TODO: take in args
-
 class App {
-    print() {
-        const adjective = adjectives[app.random(adjectives.length)]
-        const author = authors[app.random(authors.length)]
-        const scientist = scientists[app.random(scientists.length)]
-
-        console.log(
-            app.compose(
-                app.random(100),
-                adjective,
-                author,
-                scientist,
-                scientist
-            )
-        )
+    constructor(options) {
+        this.options = options || { u: false }
+        this.output = ''
+        this.defaultRandom = new Date().getTime()
+        this.adjective = adjectives[this.random(adjectives.length)]
+        this.author = authors[this.random(authors.length)]
+        this.scientist = scientists[this.random(scientists.length)]
     }
 
-    compose(random, adjective, author, scientist) {
+    print(log) {
+        this.compose(this.adjective, this.author, this.scientist)
+        if (this.options.u) this.transform()
+        log(this.output)
+    }
+
+    compose(adjective, author, scientist) {
         this.output =
-            random % 2 == 0
+            this.defaultRandom % 2 == 0
                 ? `${adjective}-${scientist}`
                 : `${adjective}-${author}`
         return this
