@@ -57,10 +57,10 @@ test('compose() should build name from adjective and scientist for even randoms'
     expect(actual.output).toBe(`${expectedAdjective}-${expectedScientist}`)
 })
 
-test('transform() should change hyphens to underscores', () => {
-    const input = 'adjective-author'
+test('transform() should change all hyphens to underscores', () => {
+    const input = 'adjective-adjective-author'
     const actual = app.transform(input)
-    expect(actual.output).toBe('adjective_author')
+    expect(actual.output).toBe('adjective_adjective_author')
 })
 
 test('transform() should handle undefined arguments', () => {
