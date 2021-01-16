@@ -25,7 +25,7 @@ class App {
     }
 
     transform(input) {
-        this.output = (input || this.output).replace('-', '_')
+        this.output = (input || this.output).replace(/-/gi, '_')
         return this
     }
 
