@@ -72,6 +72,15 @@ PS C:\> mknm -u
 tart_dickinson
 ```
 
+Make-it-name also supports command line arguments to output with capitalization. This option can be used along with the underscore option.
+
+Example:
+
+```
+PS C:\> mknm -u -c
+Abusive_Vesalius
+```
+
 ### Advanced Usage
 
 To make the output of make-it-name a little more usable, you can use a Powershell function and alias to set the output in your clipboard value.
