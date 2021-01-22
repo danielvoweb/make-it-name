@@ -2,7 +2,7 @@ const { adjectives, authors, scientists } = require('./data')
 
 class App {
     constructor(options) {
-        this.options = options || { u: false }
+        this.options = options || { u: false, c: false }
         this.output = ''
         this.defaultRandom = new Date().getTime()
         this.adjective = adjectives[this.random(adjectives.length)]
@@ -12,6 +12,7 @@ class App {
 
     print(log) {
         this.compose(this.adjective, this.author, this.scientist)
+        if (this.options.c) this.capitalize()
         if (this.options.u) this.transform()
         log(this.output)
     }
@@ -21,6 +22,15 @@ class App {
             this.defaultRandom % 2 == 0
                 ? `${adjective}-${scientist}`
                 : `${adjective}-${author}`
+        return this
+    }
+
+    capitalize(input) {
+        this.output = (input || this.output)
+            .split('-')
+            .map((x) => (x ? x[0].toUpperCase() + x.substring(1) : ''))
+            .join('-')
+
         return this
     }
 
