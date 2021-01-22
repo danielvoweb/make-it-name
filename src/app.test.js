@@ -4,6 +4,10 @@ const expectedAdjective = 'adjective'
 const expectedAuthor = 'author'
 const expectedScientist = 'scientist'
 
+const expectedCapitalizedAdjective = 'Adjective'
+const expectedCapitalizedAuthor = 'Author'
+const expectedCapitalizedScientist = 'Scientist'
+
 let app, log
 beforeEach(() => {
     app = new App()
@@ -58,9 +62,11 @@ test('compose() should build name from adjective and scientist for even randoms'
 })
 
 test('transform() should change all hyphens to underscores', () => {
-    const input = 'adjective-adjective-author'
+    const input = `${expectedAdjective}-${expectedAdjective}-${expectedAuthor}`
     const actual = app.transform(input)
-    expect(actual.output).toBe('adjective_adjective_author')
+    expect(actual.output).toBe(
+        `${expectedAdjective}_${expectedAdjective}_${expectedAuthor}`
+    )
 })
 
 test('transform() should handle undefined arguments', () => {
@@ -77,6 +83,31 @@ test('transform() should chain with compose()', () => {
     expect(actual.output).toBe(`${expectedAdjective}_${expectedAuthor}`)
 })
 
+test('capitalize() should capitalize every word', () => {
+    const input = `${expectedAdjective}-${expectedAdjective}-${expectedAuthor}`
+    const actual = app.capitalize(input)
+    expect(actual.output).toBe(
+        `${expectedCapitalizedAdjective}-${expectedCapitalizedAdjective}-${expectedCapitalizedAuthor}`
+    )
+})
+
+test('capitalize() should handle undefined', () => {
+    const actual = app.capitalize(undefined)
+    expect(actual.output).toBe('')
+})
+
+test('capitalize() should chain with compose() and transform()', () => {
+    app.defaultRandom = 1
+    const actual = app
+        .compose(expectedAdjective, expectedAuthor, expectedScientist)
+        .capitalize()
+        .transform()
+
+    expect(actual.output).toBe(
+        `${expectedCapitalizedAdjective}_${expectedCapitalizedAuthor}`
+    )
+})
+
 test('print() should log a random name with underscores with options', () => {
     const options = {
         u: true,
@@ -86,7 +117,26 @@ test('print() should log a random name with underscores with options', () => {
     expect(log.mock.calls[0][0]).toMatch(/\w+_\w+/)
 })
 
-test('print() should log a random name with hyphens with options', () => {
+test('print() should log a random name with hyphens and uppercase options', () => {
+    const options = {
+        c: true,
+    }
+    app = new App(options)
+    app.print(log)
+    expect(log.mock.calls[0][0]).toMatch(/[A-Z]\w+-[A-Z]\w+/)
+})
+
+test('print() should log random name with all options', () => {
+    const options = {
+        u: true,
+        c: true,
+    }
+    app = new App(options)
+    app.print(log)
+    expect(log.mock.calls[0][0]).toMatch(/[A-Z]\w+_[A-Z]\w+/)
+})
+
+test('print() should log a random name with options', () => {
     const options = {
         u: false,
     }
