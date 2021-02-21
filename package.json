@@ -1,9 +1,10 @@
 {
     "name": "make-it-name",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "description": "Random name generator",
     "main": "bin/program.js",
     "scripts": {
+        "prettier-watch": "onchange \"**/*\" -- prettier --write .",
         "test": "jest --watch"
     },
     "repository": {
@@ -23,7 +24,9 @@
     },
     "homepage": "https://github.com/danielvoweb/make-it-name#readme",
     "devDependencies": {
-        "jest": "^26.6.3"
+        "jest": "^26.6.3",
+        "onchange": "^7.1.0",
+        "prettier": "^2.2.1"
     },
     "prettier": {
         "trailingComma": "es5",
