@@ -17,26 +17,36 @@ class App {
     }
 
     setAlliterativeData() {
-        this.adjective = this.adjectives[this.random(this.adjectives.length)]
-        const match = this.adjective.substring(0, 1)
-        this.author = this.alliterate(match, this.authors)
-        this.scientist = this.alliterate(match, this.scientists)
+        const noun = {
+            scientist: () => {
+                this.scientist = this.scientists[
+                    this.random(this.scientists.length)
+                ]
+                return this.scientist
+            },
+            author: () => {
+                this.author = this.authors[this.random(this.authors.length)]
+                return this.author
+            },
+        }[this.nounType]()
+        const match = noun.substring(0, 1)
+        this.adjective = this.alliterate(match, this.adjectives)
     }
 
     setNoun() {
-        return (this.nounType = ['author', 'scientist'](
-            this.defaultRandom % 2 == 0
-        ))
+        this.nounType = { 0: 'scientist', 1: 'author' }[this.defaultRandom % 2]
     }
 
     alliterate(match, collection) {
         const filteredCollection = collection.filter(
             (x) => x.substring(0, 1) == match
         )
+        console.log(filteredCollection)
         return filteredCollection[this.random(filteredCollection.length)]
     }
 
     print(log) {
+        this.setNoun()
         this.options.a ? this.setAlliterativeData() : this.setData()
         this.compose()
         if (this.options.c) this.capitalize()
@@ -45,10 +55,10 @@ class App {
     }
 
     compose() {
-        this.output =
-            this.defaultRandom % 2 == 0
-                ? `${this.adjective}-${this.scientist}`
-                : `${this.adjective}-${this.author}`
+        this.output = {
+            scientist: `${this.adjective}-${this.scientist}`,
+            author: `${this.adjective}-${this.author}`,
+        }[this.nounType]
         return this
     }
 

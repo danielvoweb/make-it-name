@@ -46,6 +46,7 @@ test('compose() should build name from adjective and authors for odd randoms', (
     app.adjective = expectedAdjective
     app.author = expectedAuthor
     app.scientist = expectedScientist
+    app.setNoun()
     const actual = app.compose()
     expect(actual.output).toBe(`${expectedAdjective}-${expectedAuthor}`)
 })
@@ -55,6 +56,7 @@ test('compose() should build name from adjective and scientist for even randoms'
     app.adjective = expectedAdjective
     app.author = expectedAuthor
     app.scientist = expectedScientist
+    app.setNoun()
     const actual = app.compose()
     expect(actual.output).toBe(`${expectedAdjective}-${expectedScientist}`)
 })
@@ -77,6 +79,7 @@ test('transform() should chain with compose()', () => {
     app.adjective = expectedAdjective
     app.author = expectedAuthor
     app.scientist = expectedScientist
+    app.setNoun()
     const actual = app.compose().transform()
 
     expect(actual.output).toBe(`${expectedAdjective}_${expectedAuthor}`)
@@ -100,6 +103,7 @@ test('capitalize() should chain with compose() and transform()', () => {
     app.adjective = expectedAdjective
     app.author = expectedAuthor
     app.scientist = expectedScientist
+    app.setNoun()
     const actual = app.compose().capitalize().transform()
 
     expect(actual.output).toBe(
@@ -163,29 +167,37 @@ test('print() should set alliterative random names with options', () => {
 })
 
 test('setAlliterativeData() should set author and scientist from adjective', () => {
-    const adjectives = ['brainy']
-    const authors = ['austen', 'bronte', 'christie']
+    const adjectives = ['abrupt', 'brainy', 'charming']
     const scientists = ['asclepius', 'brahe', 'cavendish']
 
-    app.setAlliterativeData(adjectives, authors, scientists)
+    app = new App(null, adjectives, null, scientists)
+    app.nounType = 'scientist'
+    app.random = () => 1
 
-    expect(app.author).toBe(authors[1])
+    app.setAlliterativeData()
+
     expect(app.scientist).toBe(scientists[1])
 })
 
-test('messy-maugham', () => {
+test('alliterate() should filter by match', () => {
+    const adjectives = ['abrupt', 'brainy', 'charming']
+    const actual = app.alliterate('b', adjectives)
+    expect(actual).toBe('brainy')
+})
+/*test('messy-maugham', () => {
     const adjectives = ['cumbersome', 'efficacious']
     const authors = ['austen', 'bronte', 'christie']
     const scientists = ['asclepius', 'brahe', 'cavendish']
 
     app.random = () => 1
+    app.setNoun()
 
-    app.setAlliterativeData(adjectives, authors, scientists)
+    app.setAlliterativeData()
 
     expect(app.author).toBe(authors[2])
     expect(app.scientist).toBe(scientists[2])
 })
-
+*/
 test('alliterate() should filter a collection by a matched character', () => {
     const collection = ['austen', 'bronte', 'christie']
     const actual = app.alliterate('b', collection)
@@ -198,6 +210,16 @@ test('aloof-milton', () => {
     expect(actual).toBe(undefined)
 })
 
-test('bad-hawthorne', () => {
-    const collection = ['austen', 'bronte', 'christie']
+test('setNoun() should return author for odd random cases', () => {
+    app.defaultRandom = 1
+    app.setNoun()
+    const actual = app.nounType
+    expect(actual).toBe('author')
+})
+
+test('setNoun() should return scientist for even random cases', () => {
+    app.defaultRandom = 2
+    app.setNoun()
+    const actual = app.nounType
+    expect(actual).toBe('scientist')
 })
