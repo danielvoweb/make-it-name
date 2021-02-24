@@ -63,7 +63,7 @@ PS C:\> mknm
 historical-watson
 ```
 
-Make-it-name supports command line arguments to output with underscores instead of hyphens.
+Make-it-name supports command line arguments for formatting with underscores instead of hyphens, capitalization, and alliteration. Each command line argument can be combined with another.
 
 Example:
 
@@ -72,13 +72,17 @@ PS C:\> mknm -u
 tart_dickinson
 ```
 
-Make-it-name also supports command line arguments to output with capitalization. This option can be used along with the underscore option.
-
 Example:
 
 ```
 PS C:\> mknm -u -c
 Abusive_Vesalius
+```
+
+Example:
+
+```
+PS C:\> mknm -u -c -a
 ```
 
 ### Advanced Usage

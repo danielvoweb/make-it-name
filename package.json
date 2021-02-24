@@ -1,9 +1,10 @@
 {
     "name": "make-it-name",
-    "version": "1.2.1",
-    "description": "Random name generator",
+    "version": "1.2.2",
+    "description": "Generate random, docker-like names, e.g. 'quirky-asimov' or 'brainy-bronte'",
     "main": "bin/program.js",
     "scripts": {
+        "prettier-watch": "onchange \"**/*\" -- prettier --write .",
         "test": "jest --watch"
     },
     "repository": {
@@ -14,7 +15,8 @@
         "cli",
         "name",
         "generator",
-        "naming"
+        "naming",
+        "docker-names"
     ],
     "author": "dan@daniel-vo.com",
     "license": "MIT",
@@ -23,7 +25,9 @@
     },
     "homepage": "https://github.com/danielvoweb/make-it-name#readme",
     "devDependencies": {
-        "jest": "^26.6.3"
+        "jest": "^26.6.3",
+        "onchange": "^7.1.0",
+        "prettier": "^2.2.1"
     },
     "prettier": {
         "trailingComma": "es5",
