@@ -166,17 +166,28 @@ test('print() should set alliterative random names with options', () => {
     expect(actual[0].substring(0, 1)).toBe(actual[1].substring(0, 1))
 })
 
-test('setAlliterativeData() should set author and scientist from adjective', () => {
+test('setAlliterativeData() should set scientist from adjective', () => {
     const adjectives = ['abrupt', 'brainy', 'charming']
-    const scientists = ['asclepius', 'brahe', 'cavendish']
+    const scientists = ['brahe']
 
     app = new App(null, adjectives, null, scientists)
     app.nounType = 'scientist'
-    app.random = () => 1
 
     app.setAlliterativeData()
 
-    expect(app.scientist).toBe(scientists[1])
+    expect(app.adjective).toBe(adjectives[1])
+})
+
+test('setAlliterativeData() should set author from adjective', () => {
+    const adjectives = ['abrupt', 'brainy', 'charming']
+    const authors = ['bronte']
+
+    app = new App(null, adjectives, authors, null)
+    app.nounType = 'author'
+
+    app.setAlliterativeData()
+
+    expect(app.adjective).toBe(adjectives[1])
 })
 
 test('alliterate() should filter by match', () => {
@@ -184,27 +195,14 @@ test('alliterate() should filter by match', () => {
     const actual = app.alliterate('b', adjectives)
     expect(actual).toBe('brainy')
 })
-/*test('messy-maugham', () => {
-    const adjectives = ['cumbersome', 'efficacious']
-    const authors = ['austen', 'bronte', 'christie']
-    const scientists = ['asclepius', 'brahe', 'cavendish']
 
-    app.random = () => 1
-    app.setNoun()
-
-    app.setAlliterativeData()
-
-    expect(app.author).toBe(authors[2])
-    expect(app.scientist).toBe(scientists[2])
-})
-*/
 test('alliterate() should filter a collection by a matched character', () => {
     const collection = ['austen', 'bronte', 'christie']
     const actual = app.alliterate('b', collection)
     expect(actual).toBe(collection[1])
 })
 
-test('aloof-milton', () => {
+test('alliterate() should be undefined if no match', () => {
     const collection = ['austen', 'bronte', 'christie']
     const actual = app.alliterate('d', collection)
     expect(actual).toBe(undefined)

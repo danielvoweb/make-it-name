@@ -22,10 +22,12 @@ class App {
                 this.scientist = this.scientists[
                     this.random(this.scientists.length)
                 ]
+
                 return this.scientist
             },
             author: () => {
                 this.author = this.authors[this.random(this.authors.length)]
+
                 return this.author
             },
         }[this.nounType]()
@@ -41,7 +43,6 @@ class App {
         const filteredCollection = collection.filter(
             (x) => x.substring(0, 1) == match
         )
-        console.log(filteredCollection)
         return filteredCollection[this.random(filteredCollection.length)]
     }
 
