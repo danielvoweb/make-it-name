@@ -1,0 +1,32 @@
+{
+    "adjectives": [
+        "bite-sized",
+        "black-and-white",
+        "blue-eyed",
+        "far-flung",
+        "hard-to-find",
+        "high-pitched",
+        "ill-fated",
+        "ill-informed",
+        "long-term",
+        "old-fashioned",
+        "second-hand",
+        "teeny-tiny",
+        "well-groomed",
+        "well-made",
+        "well-off",
+        "well-to-do",
+        "wide-eyed"
+    ],
+    "authors": [
+        "de-cervantes",
+        "von-goethe",
+        "de-balzac"
+    ],
+    "scientists": [
+        "da-vinci",
+        "van-leeuwenhoek",
+        "von-humboldt",
+        "gay-lussac"
+    ]
+}
