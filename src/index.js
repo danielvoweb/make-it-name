@@ -17,7 +17,7 @@ class App {
     }
 
     setAlliterativeData(value) {
-        if (value) {
+        if (value !== undefined) {
             this.scientist = this.alliterate(value, this.scientists)
             this.author = this.alliterate(value, this.authors)
             this.adjective = this.alliterate(value, this.adjectives)
@@ -55,9 +55,13 @@ class App {
 
     print(log) {
         this.setNoun()
-        this.options.a
-            ? this.setAlliterativeData(this.options.a)
-            : this.setData()
+
+        if (this.options.a === undefined || this.options.a === false)
+            this.setData()
+        if (this.options.a !== undefined)
+            this.setAlliterativeData(this.options.a)
+        if (this.options.a === true) this.setAlliterativeData()
+
         this.compose()
         if (this.options.c) this.capitalize()
         if (this.options.u) this.transform()

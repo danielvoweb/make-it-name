@@ -36,8 +36,8 @@ test('Should alliterate with -a option', async () => {
     expect(firstWordLetter).toBe(secondWordLetter)
 })
 
-test('Should alliterate with a value', async () => {
-    const result = await cli(['mknm', '-a', 'd'])
+test('Should alliterate with a value with -a option', async () => {
+    const result = await cli(['mknm', '-a'])
     const outputNames = result.stdout.trim().split('-')
     const firstWord = outputNames[0]
     const secondWord = outputNames[1]
