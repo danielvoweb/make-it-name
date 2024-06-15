@@ -36,6 +36,24 @@ test('Should alliterate with -a option', async () => {
     expect(firstWordLetter).toBe(secondWordLetter)
 })
 
+test('Should alliterate with a value', async () => {
+    const result = await cli(['mknm', '-a', 'd'])
+    const outputNames = result.stdout.trim().split('-')
+    const firstWord = outputNames[0]
+    const secondWord = outputNames[1]
+    expect(firstWord).not.toBe('undefined')
+    expect(secondWord).not.toBe('undefined')
+})
+
+test('Should alliterate with -a option and value', async () => {
+    const result = await cli(['mknm', '-a', 'd'])
+    const outputNames = result.stdout.trim().split('-')
+    const firstWordLetter = outputNames[0].substring(0, 1)
+    const secondWordLetter = outputNames[1].substring(0, 1)
+    expect(firstWordLetter).toBe('d')
+    expect(firstWordLetter).toBe(secondWordLetter)
+})
+
 test('Should hyphentate output name as default', async () => {
     const result = await cli(['mknm'])
     const outputName = result.stdout.trim()
