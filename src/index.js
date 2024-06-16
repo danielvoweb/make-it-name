@@ -2,7 +2,7 @@ const { adjectives, authors, scientists } = require('./data')
 
 class App {
     constructor(options, _adjectives, _authors, _scientists) {
-        this.options = options || { u: false, c: false, a: false }
+        this.options = options || { u: false, c: false }
         this.output = ''
         this.defaultRandom = new Date().getTime()
         this.adjectives = _adjectives || adjectives
@@ -16,7 +16,14 @@ class App {
         this.scientist = this.scientists[this.random(this.scientists.length)]
     }
 
-    setAlliterativeData() {
+    setAlliterativeData(value) {
+        if (value !== undefined) {
+            this.scientist = this.alliterate(value, this.scientists)
+            this.author = this.alliterate(value, this.authors)
+            this.adjective = this.alliterate(value, this.adjectives)
+            return
+        }
+
         const noun = {
             scientist: () => {
                 this.scientist = this.scientists[
@@ -48,7 +55,13 @@ class App {
 
     print(log) {
         this.setNoun()
-        this.options.a ? this.setAlliterativeData() : this.setData()
+
+        if (this.options.a === undefined || this.options.a === false)
+            this.setData()
+        if (this.options.a !== undefined)
+            this.setAlliterativeData(this.options.a)
+        if (this.options.a === true) this.setAlliterativeData()
+
         this.compose()
         if (this.options.c) this.capitalize()
         if (this.options.u) this.transform()
